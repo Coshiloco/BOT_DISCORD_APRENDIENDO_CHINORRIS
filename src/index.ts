@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import config from "../slappey.json";
 import DiscordClient from "./client/client";
+import { GuildConfiguration } from "./typeorm/entities/GuildConfiguration";
 import { registerCommands, registerEvents } from "./utils/registry";
 const client = new DiscordClient({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
@@ -20,6 +21,8 @@ const client = new DiscordClient({
     port: 3306,
     username: process.env.MARIADB_DB_USERNAME,
     password: process.env.MARIADB_DB_PASSWORD,
-    database: process.env.MARIADB_DB_DATABASE
+    database: process.env.MARIADB_DB_DATABASE,
+    synchronize: true,
+    entities: [GuildConfiguration],
   });
 })();
