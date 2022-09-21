@@ -17,7 +17,19 @@ export default class GuildCreateEvent extends BaseEvent {
     console.log(`Joined ${guild.name}`);
 
     const config = await this.guildConfigRepository.findOne({
-      guildId: guild.id
+      where: {
+        guildId: guild.id,
+      },
     });
+
+    if (config) {
+      console.log("A configurition was found");
+    } else {
+      console.log("A configuartion was not found. Creating One.");
+      const newConfig = this.guildConfigRepository.create({
+        guildId: guild.id,
+      });
+      return this.guildConfigRepository.save(newConfig);
+    }
   }
 }
