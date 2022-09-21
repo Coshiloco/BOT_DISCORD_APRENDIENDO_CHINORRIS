@@ -8,6 +8,6 @@ export class GuildConfiguration {
   guildId: string;
   @Column({ default: "?" })
   prefix: string;
-  @Column({ name: "welcome_channel_id" })
+  @Column({ name: "welcome_channel_id", nullable: true})
   welcomeChannelId: string;
 }
